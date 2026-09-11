@@ -9,6 +9,20 @@ from pathlib import Path
 
 PROJECTS = [
     {
+        "slug": "it-project-implementation",
+        "title": "IT project implementation and rollout",
+        "summary": "Turn an approved IT improvement into a controlled implementation plan with owners, milestones, testing, and a go-live decision.",
+        "context": "You are implementing a small internal IT service change for a 150-user organization and must deliver it with minimal disruption.",
+        "tasks": [
+            "Define the problem, in-scope users and systems, out-of-scope work, assumptions, dependencies, and measurable outcomes.",
+            "Create a work breakdown structure, milestone plan, RACI, risk register, and stakeholder communication schedule.",
+            "Specify a test plan with acceptance criteria, pilot group, rollback steps, support readiness, and change-approval evidence.",
+            "Run a tabletop go-live review and record the go/no-go decision, lessons learned, and 30-day benefits follow-up.",
+        ],
+        "deliverable": "A concise implementation charter, rollout plan, risk register, test evidence, and go-live checklist.",
+        "metrics": "Every milestone has an owner and acceptance criterion; all high risks have a mitigation or explicit approval.",
+    },
+    {
         "slug": "help-desk-triage",
         "title": "Help-desk triage and SLA workflow",
         "summary": "Design a service-desk workflow that routes incidents consistently and protects response-time commitments.",
@@ -100,7 +114,8 @@ def main() -> None:
     now = datetime.now(timezone(timedelta(hours=8)))
     date = now.date().isoformat()
     week = now.isocalendar().week
-    project = PROJECTS[(week - 1) % len(PROJECTS)]
+    # Offset the rotation so the next scheduled run starts with implementation.
+    project = PROJECTS[(week - 2) % len(PROJECTS)]
     folder = Path("projects") / f"{date}-{project['slug']}"
     folder.mkdir(parents=True, exist_ok=True)
 
