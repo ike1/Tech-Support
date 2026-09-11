@@ -28,5 +28,9 @@ jobs:
             echo "A project for this date already exists; nothing to commit."
             exit 0
           fi
+          # Keep automated commit metadata aligned with the project's Singapore date.
+          PROJECT_TIMESTAMP="$(TZ=Asia/Singapore date --iso-8601=seconds)"
+          export GIT_AUTHOR_DATE="$PROJECT_TIMESTAMP"
+          export GIT_COMMITTER_DATE="$PROJECT_TIMESTAMP"
           git commit -m "chore: add weekly IT support project"
           git push
